@@ -1,0 +1,7 @@
+[application]
+name = 'fluentd'
+repo = 'quay.io/assemblyline/fluentd'
+
+[build]
+builder = 'ruby'
+script = []
