@@ -7,8 +7,8 @@ describe 'FluentD' do
     expect(command('ruby -v').stdout.split('p').first.split[1]).to eq '2.2.3'
   end
 
-  it 'installs fluentd binstub' do
-    expect(command('bin/fluentd --version').stdout.chomp).to eq 'fluentd 0.12.16'
+  it 'installs the correct fluentd' do
+    expect(command('bin/fluentd --version').stdout.chomp).to eq 'fluentd 0.12.17'
   end
 
   describe file('bin/fluentd') do
