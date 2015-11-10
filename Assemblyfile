@@ -1,7 +1,7 @@
-[application]
+[component]
 name = 'fluentd'
 repo = 'quay.io/assemblyline/fluentd'
 
-[build]
-builder = 'ruby'
-script = []
+[[version]]
+version = 'latest'
+ruby = '2.2.3'
