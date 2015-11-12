@@ -6,6 +6,7 @@ RUN echo "deb http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu vivid main" | te
   && apt-get update -q && apt-get install -qy --no-install-recommends \
        ruby2.2 \
        ruby2.2-dev \
+       libjemalloc1 \
        libsystemd-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
