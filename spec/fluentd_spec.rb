@@ -24,6 +24,7 @@ describe 'FluentD' do
   describe file('/etc/fluent/fluent.conf') do
     it { should exist }
     it { should be_file }
+    its(:content) { should include '@include /etc/fluent/conf.d/*.conf' }
   end
 
   class Bundler
