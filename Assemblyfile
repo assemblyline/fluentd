@@ -4,4 +4,4 @@ repo = 'quay.io/assemblyline/fluentd'
 
 [[version]]
 version = 'latest'
-ruby = '2.2.3'
+ruby = '2.2.4'
