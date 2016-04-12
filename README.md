@@ -19,12 +19,3 @@ Build it
 ```
 assemblyline build .
 ```
-
-This will build the container and run some tests...
-
-If you are not bothered about testing and don't want to bother with assemblyline, you may do this:
-
-```
-mv templates/Dockerfile.erb Dockerfile
-docker build .
-```
