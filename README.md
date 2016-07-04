@@ -1,7 +1,7 @@
 # Assemblyline
 ## FluentD
 
-A docker container with fluentd and some usefull plugins for CoreOS/Kubernetes use on AWS.
+A docker container with fluentd and some usefull plugins for CoreOS/Kubernetes use on AWS and/or GCP.
 
 Take a look at the example dir, for an example of shipping kubenetes and systemd logs
 to the AWS Elasticsearch Service.

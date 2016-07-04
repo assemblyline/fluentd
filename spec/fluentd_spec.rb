@@ -8,7 +8,7 @@ describe 'FluentD' do
   end
 
   it 'installs the correct fluentd' do
-    expect(command('bin/fluentd --version').stdout.chomp).to eq 'fluentd 0.12.22'
+    expect(command('bin/fluentd --version').stdout.chomp).to eq 'fluentd 0.14.1'
   end
 
   describe file('bin/fluentd') do
@@ -16,8 +16,8 @@ describe 'FluentD' do
   end
 
   it 'installs all the fluentd plugins we need' do
-    expect(bundle.packages['fluent-plugin-aws-elasticsearch-service']).to eq '0.1.4'
-    expect(bundle.packages['fluent-plugin-kubernetes_metadata_filter']).to eq '0.17.0'
+    expect(bundle.packages['fluent-plugin-aws-elasticsearch-service']).to eq '0.1.6'
+    expect(bundle.packages['fluent-plugin-kubernetes_metadata_filter']).to eq '0.23.0'
     expect(bundle.packages['fluent-plugin-json-in-json']).to eq '0.1.4'
   end
 
