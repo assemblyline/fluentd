@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/reevoo/fluent-plugin-elasticsearch.git
-  revision: d09c0dd2b13d7f2fe16519ffbe1992b0d5b4aa1f
-  specs:
-    fluent-plugin-elasticsearch (1.5.0)
-      elasticsearch (< 1.1)
-      excon
-      fluentd (>= 0.10.43)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -53,6 +44,10 @@ GEM
       docker-api
       fluentd
       lru_redux
+    fluent-plugin-elasticsearch (1.6.0)
+      elasticsearch (< 1.1)
+      excon
+      fluentd (>= 0.10.43)
     fluent-plugin-google-cloud (0.5.1)
       fluentd (~> 0.10)
       google-api-client (> 0.9)
@@ -168,7 +163,7 @@ PLATFORMS
 
 DEPENDENCIES
   fluent-plugin-aws-elasticsearch-service
-  fluent-plugin-elasticsearch!
+  fluent-plugin-elasticsearch (~> 1.6)
   fluent-plugin-google-cloud (= 0.5.1)
   fluent-plugin-json-in-json
   fluent-plugin-kubernetes_metadata_filter
