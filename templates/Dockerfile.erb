@@ -23,5 +23,7 @@ RUN echo "deb http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu xenial main" | t
   && rm -rf /var/lib/apt/lists/* \
   && truncate -s 0 /var/log/*log
 
+ENV LD_PRELOAD /usr/lib/x86_64-linux-gnu/libjemalloc.so.1
+
 COPY bin/fluentd ./bin/
 COPY fluent.conf /etc/fluent/fluent.conf
