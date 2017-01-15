@@ -27,3 +27,5 @@ ENV LD_PRELOAD /usr/lib/x86_64-linux-gnu/libjemalloc.so.1
 
 COPY bin/fluentd ./bin/
 COPY fluent.conf /etc/fluent/fluent.conf
+
+ENTRYPOINT ["bin/fluentd"]
