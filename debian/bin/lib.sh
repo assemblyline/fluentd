@@ -1,5 +1,5 @@
 export BUILDDEPS="make gcc g++ libc-dev ruby-dev wget bzip2"
-export RUNDEPS="ca-certificates ruby libsystemd0"
+export RUNDEPS="ca-certificates ruby libsystemd0 procps"
 export JEMALLOC_VERSION="4.4.0"
 export DEBIAN_FRONTEND=noninteractive
 
@@ -17,8 +17,8 @@ remove_builddeps () {
 }
 
 install_bundler () {
-  gem update --system
   echo 'gem: --no-document' >> /etc/gemrc
+  gem update --system
   gem install bundler
 }
 

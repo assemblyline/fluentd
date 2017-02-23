@@ -1,0 +1,19 @@
+source "https://rubygems.org"
+
+gem "fluentd", "0.14.13"
+
+gem "fluent-plugin-systemd", "~> 0.2"
+gem "fluent-plugin-s3", "1.0.0.rc2"
+
+# development dependencies for fluentd so we can run the fluentd test suite inside the built container
+# might need to grab them again from https://github.com/fluent/fluentd/blob/master/fluentd.gemspec
+# if version of fluentd is updated here
+gem "rake", "~> 11.0"
+gem "flexmock", "~> 2.0"
+gem "parallel_tests", "~> 0.15.3"
+gem "simplecov", "~> 0.7"
+gem "rr", "~> 1.0"
+gem "timecop", "~> 0.3"
+gem "test-unit", "~> 3.2"
+gem "test-unit-rr", "~> 1.0"
+gem "oj", "~> 2.14"

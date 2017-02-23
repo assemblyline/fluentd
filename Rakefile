@@ -48,4 +48,8 @@ require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 task spec: :examples
 
-task default: :spec
+task fluentd_tests: :examples do
+  sh "docker run #{REPO}:example-debian"
+end
+
+task default: [:spec, :fluentd_tests]
