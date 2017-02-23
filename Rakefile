@@ -52,4 +52,26 @@ task fluentd_tests: :examples do
   sh "docker run #{REPO}:example-debian"
 end
 
+task release: :default do
+  # Check that git is clean
+  sh "git diff --exit-code"
+  # Check that everything staged is commited
+  sh "git diff-index --quiet --cached HEAD"
+
+  # Tag the version
+  sh "git tag -m \"Version #{VERSION}\" v#{VERSION}"
+  sh "git push"
+  sh "git push --tags"
+
+  # push tagged images
+  tags.each do |tag|
+    sh "docker push #{tag}"
+    sh "docker push #{tag}-onbuild"
+  end
+
+  # push unversioned images
+  sh "docker push #{IMAGE}"
+  sh "docker push #{IMAGE}-onbuild"
+end
+
 task default: [:spec, :fluentd_tests]
