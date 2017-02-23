@@ -1,21 +1,35 @@
 # Assemblyline
 ## FluentD
 
-A docker container with fluentd and some usefull plugins for CoreOS/Kubernetes use on AWS and/or GCP.
+A base image to build your own Fluentd Container.
 
-Take a look at the example dir, for an example of shipping kubenetes and systemd logs
-to the AWS Elasticsearch Service.
+## Usage
 
-## Build your own
+1) Create a `Gemfile` with fluentd and any plugins you need.
 
-Install assemblyline-cli
+```ruby
+source "https://rubygems.org"
 
+gem "fluentd", "0.14.13"
+
+gem "fluent-plugin-systemd", "~> 0.2"
 ```
-gem install assemblyline-cli
+
+2) run `bundle install` to create a `Gemfile.lock`, thus locking the exact version
+of all plugins and thier dependencies.
+
+3) Create a `Dockerfile`
+
+```Dockerfile
+FROM quay.io/assemblyline/fluentd:1.0-onbuild
+COPY config/* /etc/fluent/conf.d/
 ```
 
-Build it
+The ONBUILD instructions copy `Gemfile` and `Gemfile.lock` into your image,
+and installs everything correctly.
 
-```
-assemblyline build .
-```
+Then its up to you to copy your configuration into place. Or provide it at runtime.
+
+> The base image ships with a /etc/fluent/fluent.conf file that loads config from /etc/fluent/conf.d/. You may want to copy/mount multiple config files there. Or if your needs are simple you could just overide /etc/fluent/fluent.conf.
+
+4) `docker build && docker push` FTW

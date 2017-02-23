@@ -1,0 +1,9 @@
+#!/bin/sh -xe
+
+SRCLOC=$(dirname $(readlink -f $0))
+. $SRCLOC/lib.sh
+
+apt-get update
+install_dependencies
+bundle install --system --frozen --jobs=4 --retry=3
+remove_builddeps

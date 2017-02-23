@@ -1,0 +1,14 @@
+#!/bin/sh -xe
+
+SRCLOC=$(dirname $(readlink -f $0))
+. $SRCLOC/lib.sh
+
+apt-get update
+apt-get upgrade -y
+install_dependencies
+install_libjemalloc
+install_bundler
+remove_builddeps
+useradd fluent -d /home/fluent -m -U
+mkdir -p /etc/fluent/conf.d
+chown -R fluent:fluent /etc/fluent

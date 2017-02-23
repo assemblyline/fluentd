@@ -1,12 +1,18 @@
 require "serverspec"
 
 describe "FluentD" do
-  let(:gems) do
-    Hash[command("bundle list")
-      .stdout
-      .split("\n")[1..-1]
-      .map(&:split)
-      .map { |a| [a[1], a[-1][1..-2]] }
+  before(:all) do
+    set :os, family: :debian
+    set :backend, :docker
+    set :docker_image, ENV["DOCKER_IMAGE"]
+  end
+
+  let(:env) do
+    Hash[
+      command("env")
+        .stdout
+        .split("\n")
+        .map { |e| e.split("=") }
     ]
   end
 
@@ -14,25 +20,27 @@ describe "FluentD" do
     expect(command("ruby -v").stdout.split("p").first.split[1]).to eq "2.3.3"
   end
 
-  it "installs the correct fluentd" do
-    expect(command("bin/fluentd --version").stdout.chomp).to eq "fluentd 0.14.11"
+  it "installs jemalloc" do
+    expect(env["LD_PRELOAD"]).to match "libjemalloc"
+
+    jemalloc = file(env["LD_PRELOAD"])
+    expect(jemalloc).to exist
+    expect(jemalloc).to be_file
+    expect(jemalloc).to be_readable
+    expect(jemalloc).to be_executable
   end
 
-  describe file("bin/fluentd") do
-    it { should be_executable }
+  # runtime dependencies
+  %w(ruby libsystemd0 ca-certificates).each do |pkg|
+    describe package(pkg) do
+      it { should be_installed }
+    end
   end
 
-  it "installs all the fluentd plugins we need" do
-    expect(gems["fluent-plugin-aws-elasticsearch-service"]).to eq "0.1.6"
-    expect(gems["fluent-plugin-kubernetes_metadata_filter"]).to eq "0.26.2"
-    expect(gems["fluent-plugin-json-in-json"]).to eq "0.1.4"
-  end
-
-  describe file("/etc/fluent/fluent.conf") do
-    it { should exist }
-    it { should be_file }
-    it "should reference the fluent conf.d directory" do
-      expect(subject.content).to include "@include /etc/fluent/conf.d/*.conf"
+  # build dependencies
+  %w(make gcc g++ libc-dev ruby-dev wget bzip2).each do |pkg|
+    describe package(pkg) do
+      it { should_not be_installed }
     end
   end
 end
